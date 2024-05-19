@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import { Vehicle } from './types/types'
+import vehicleService from './services/vehicle.service'
+import VehiclesList from './components/vehiclesList'
+import Map from './components/map'
 
-function App() {
+const App: React.FC = () => {
+  const [vehicles, setVehicles] = useState<Vehicle[]>([])
+  const [isOpen, setOpen] = useState(false)
+  const [loading, setLoading] = useState(true) // Состояние для индикации загрузки
+
+  useEffect(() => {
+    getVehicles()
+  }, [])
+
+  const getVehicles = async () => {
+    const data = await vehicleService.get()
+    setVehicles(data)
+    setLoading(false) // Устанавливаем загрузку как завершенную
+  }
+
+  document.addEventListener('keyup', event => {
+    if (event.code === 'Escape') setOpen(false)
+  })
+
+  const handleChange = (newInfo: Vehicle[]) => {
+    setVehicles(newInfo)
+  }
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      {loading ? (
+        <p>Загрузка...</p>
+      ) : (
+        <>
+          {isOpen ? (
+            <Map vehicles={vehicles} onClose={handleClose} />
+          ) : (
+            <VehiclesList
+              vehicles={vehicles}
+              onChange={handleChange}
+              onOpen={handleOpen}
+            />
+          )}
+        </>
+      )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,5 +1,11 @@
 body {
   margin: 0;
+  padding: 0;
+  background: url('./img/main-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +16,58 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button {
+  margin-left: 0;
+}
+
+.container {
+  margin: 10px;
+}
+
+.title {
+  color: white;
+}
+
+.sort-button {
+  position: relative;
+  padding-right: 25px !important;
+}
+
+.sort-icon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+}
+
+.card {
+  margin: 0;
+  padding: 0;
+  background: url('./img/card-background.jpg') no-repeat center center;
+  background-size: 100% auto;
+  width: 100%;
+}
+
+.leaflet-container {
+  height: 97vh !important;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 1000;
+}
+
+.close-button button {
+  background-color: transparent;
+  border: none;
+  font-size: 48px;
+  color: #000;
+}
+
+.close-button button:hover {
+  color: red;
 }
